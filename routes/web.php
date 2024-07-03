@@ -1,17 +1,23 @@
 <?php
 
+use App\Events\HelloWorld;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
+    HelloWorld::dispatch();
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
+});
+
+Route::get('/visit-count', function() {
+    return Inertia::render("VisitCount");
 });
 
 Route::get('/dashboard', function () {
